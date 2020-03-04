@@ -9,10 +9,12 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "5.1.1",
+    "@testing-library/vue": "4.1.0",
     "@vue/cli-plugin-babel": "4.1.1",
     "@vue/cli-plugin-unit-jest": "4.1.1",
-    "@vue/test-utils": "1.0.0-beta.29",
     "jest": "25.1.0",
+    "jest-dom": "4.0.0",
     "vue": "^2.6.11",
     "vue-template-compiler": "2.6.11",
     "vuex": "3.1.2"
@@ -30,7 +32,10 @@
     "env": {
       "node": true
     },
-    "extends": ["plugin:vue/essential", "eslint:recommended"],
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
@@ -41,7 +46,15 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
-  "keywords": ["vue", "vuejs", "starter"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "keywords": [
+    "vue",
+    "vuejs",
+    "starter"
+  ],
   "description": "Vue.js example starter project"
 }

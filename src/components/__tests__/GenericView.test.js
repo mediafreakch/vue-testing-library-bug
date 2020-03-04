@@ -1,12 +1,8 @@
 /* eslint-env jest */
-import Vuex from "vuex";
+import "@testing-library/jest-dom/extend-expect";
 import Vue from "vue";
-import { mount, createLocalVue } from "@vue/test-utils";
-import GenericView from "../GenericView";
-
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
+import { render } from "@testing-library/vue";
+import GenericView from "../GenericView.vue";
 
 describe("GenericView.vue", () => {
   let getters;
@@ -33,18 +29,17 @@ describe("GenericView.vue", () => {
       fetchViewInfo: jest.fn().mockResolvedValue(null)
     };
 
-    store = new Vuex.Store({
+    store = {
       actions,
       getters
-    });
+    };
   });
 
   it("dispatches fetchViewInfo when created", () => {
-    mount(GenericView, {
+    render(GenericView, {
       stubs: ["GenericView"],
-      localVue,
       store,
-      props: {
+      propsData: {
         kind: "Dashboard"
       }
     });
@@ -52,9 +47,8 @@ describe("GenericView.vue", () => {
   });
 
   it("should render the chart component", async () => {
-    const wrapper = mount(GenericView, {
+    const { getByText, debug } = render(GenericView, {
       store,
-      localVue,
       propsData: {
         kind: "Dashboard"
       }
@@ -62,7 +56,7 @@ describe("GenericView.vue", () => {
 
     await Vue.nextTick();
 
-    const h2 = wrapper.find("h2");
-    expect(h2.text() === "Test Chart").toBe(true);
+    debug();
+    getByText("Test Chart");
   });
 });
