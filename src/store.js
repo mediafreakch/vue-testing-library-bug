@@ -3,36 +3,18 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const apiMock = {
-  Chart: {
-    title: "Hello from Chart"
-  },
-  Dashboard: {
-    items: ["Chart", "Chart", "Chart"],
-    title: "I am a Dashboard"
-  }
-};
-
 export const store = new Vuex.Store({
   state: {
-    viewInfos: {
-      Chart: null,
-      Dashboard: null
-    }
-  },
-  mutations: {
-    addViewInfo(state, { kind, data }) {
-      state.viewInfos[kind] = data;
+    project1: {
+      title: "Project1 Title",
+      content: "Project1 Content"
+    },
+    project2: {
+      title: "Project2 Title",
+      content: "Project2 Content"
     }
   },
   getters: {
-    viewInfo: state => kind => state.viewInfos[kind]
-  },
-  actions: {
-    async fetchViewInfo({ commit }, kind) {
-      setTimeout(() => {
-        commit("addViewInfo", { data: apiMock[kind], kind });
-      }, 100);
-    }
+    byProject: state => project => state[project]
   }
 });

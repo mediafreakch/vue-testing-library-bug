@@ -1,40 +1,28 @@
 <script>
-import Vue from "vue";
-import Dashboard from "./Dashboard.vue";
-import Chart from "./Chart.vue";
+import Project from "./Project";
+import Portfolio from "./Portfolio";
+import { mapGetters } from "vuex";
 
-export default Vue.extend({
+export default {
   name: "GenericView",
-  props: ["kind"],
-  created: async function() {
-    await this.fetchViewInfo(this.kind);
-  },
-  methods: {
-    fetchViewInfo: function(kind) {
-      this.$store.dispatch("fetchViewInfo", kind);
-    }
-  },
+  props: ["kind", "id"],
   computed: {
-    viewInfo: function() {
-      return this.$store.getters.viewInfo(this.kind);
-    }
+    ...mapGetters(["byProject"])
   },
   render: function(h) {
-    if (this.viewInfo && this.kind) {
+    if (this.kind) {
       switch (this.kind) {
-        case "Chart":
-          return h(Chart, {
-            props: { ...this.$props, viewData: this.viewInfo }
-          });
-        case "Dashboard":
-          return h(Dashboard, {
-            props: { ...this.$props, viewData: this.viewInfo }
-          });
+        case "project": {
+          const viewData = this.byProject(this.id);
+          return h(Project, { props: viewData });
+        }
+        case "portfolio":
+          return h(Portfolio);
         default:
           return h("strong", "Unsupported type!");
       }
     }
     return h("span", "Loading");
   }
-});
+};
 </script>

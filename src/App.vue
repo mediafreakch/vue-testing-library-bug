@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <GenericView kind="Dashboard"/>
+    <GenericView kind="portfolio" />
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import GenericView from "./components/GenericView";
 
-export default Vue.extend({
+export default {
   name: "App",
   components: {
     GenericView
   }
-});
+};
 </script>
 
 <style>
